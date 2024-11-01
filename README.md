@@ -37,8 +37,7 @@
 openssl genrsa -out CA.key  2048
 openssl req -x509 -new -nodes -key myCA.key -sha256 -days 1825 -out myCA.pem
 ```
-
-# docker certificate
+## docker certificate
 
 ```bash
 genrsa -out docker.key 2048
