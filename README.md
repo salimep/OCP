@@ -14,7 +14,7 @@
 
 ## Architecture Diagram
 
-![Architecture Diagram](#salimonline.png)
+![Architecture Diagram](./salimonline.png)
 ## Download Software
 
 1. Login to [RedHat OpenShift Cluster Manager](https://cloud.redhat.com/openshift)
