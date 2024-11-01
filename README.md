@@ -3,17 +3,13 @@
 - [OpenShift 4 Bare Metal Install - User Provisioned Infrastructure (UPI)](#openshift-4-bare-metal-install---user-provisioned-infrastructure-upi)
   - [Architecture Diagram](#architecture-diagram)
   - [Download Software](#download-software)
-  - [Prepare the 'Bare Metal' environment](#prepare-the-bare-metal-environment)
   - [Generate and host install files](#generate-and-host-install-files)
   - [Deploy OpenShift](#deploy-openshift)
   - [Monitor the Bootstrap Process](#monitor-the-bootstrap-process)
   - [Remove the Bootstrap Node](#remove-the-bootstrap-node)
   - [Wait for installation to complete](#wait-for-installation-to-complete)
   - [Join Worker Nodes](#join-worker-nodes)
-  - [Configure storage for the Image Registry](#configure-storage-for-the-image-registry)
-  - [Create the first Admin user](#create-the-first-admin-user)
   - [Access the OpenShift Console](#access-the-openshift-console)
-  - [Troubleshooting](#troubleshooting)
 
 ## Architecture Diagram
 
