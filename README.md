@@ -31,7 +31,7 @@
      - rhcos-X.X.X-x86_64-metal.x86_64.raw.gz
      - rhcos-X.X.X-x86_64-installer.x86_64.iso (or rhcos-X.X.X-x86_64-live.x86_64.iso for newer versions)
 
-[configure  local registry with UI](configure-local-registry)
+configure local registry with UI(#configure-local-registry)
 1)	Generate CA & certificate for your docker container
 ## ca creation
 ```bash
@@ -312,7 +312,7 @@ imageContentSources:
    192.168.0.96 ocp-svc api.lab.ocp.lan console-openshift-console.apps.lab.ocp.lan oauth-openshift.apps.lab.ocp.lan downloads-openshift-console.apps.lab.ocp.lan alertmanager-main-openshift-monitoring.apps.lab.ocp.lan grafana-openshift-monitoring.apps.lab.ocp.lan prometheus-k8s-openshift-monitoring.apps.lab.ocp.lan thanos-querier-openshift-monitoring.apps.lab.ocp.lan
    ```
 
-1. Navigate to the [OpenShift Console URL](https://console-openshift-console.apps.lab.ocp.lan) and log in as the 'admin' user
+1. Navigate to the [OpenShift Console URL](https://console-openshift-console.apps.cloud.salimonline.local) and log in as the 'admin' user
 
    > You will get self signed certificate warnings that you can ignore
    > If you need to login as kubeadmin and need to the password again you can retrieve it with: `cat ~/ocp-install/auth/kubeadmin-password`
