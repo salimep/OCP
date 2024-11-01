@@ -125,9 +125,11 @@ Uploading  opensshift images into local repository
 1. Update the install-config.yaml with your own pull-secret and ssh key.
 
    - Line 23 should contain the contents of your pull-secret.txt
+   - append your localregistry authentication into pull-secret file well ( its very importent otherwise it will not authenticate with your local registry repositories)
    - Line 24 should contain the contents of your '~/.ssh/id_rsa.pub'
    - paste your custom CA file which we created part of docker-registry setup
    - append your localregistry url inside the install-config.yaml as shown in below
+   - 
 ```bash
    vim ~/ocp-install/install-config.yaml
 ```
