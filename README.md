@@ -1,5 +1,5 @@
 # OCP
-# OpenShift 4.14.12 Bare Metal Install - User Provisioned Infrastructure (UPI)
+# OpenShift 4.14.12 Bare Metal Install - User Provisioned Infrastructure (UPI) on restricted/disconnected enviorment 
 
 - [OpenShift 4 Bare Metal Install - User Provisioned Infrastructure (UPI)](#openshift-4-bare-metal-install---user-provisioned-infrastructure-upi)
   - [Architecture Diagram](#architecture-diagram)
@@ -71,7 +71,7 @@ ATAGLIST_PAGE_SIZE=100 -e REGISTRY_SECURED=false -e CATALOG_ELEMENTS_LIMIT=1000 
 
 ## run registry
 
-podman run --name local-registry -p 192.168.10.10:5000:5000 -v /opt/registry/data:/var/lib/registry:z -v /opt/registry/auth:/auth:z -e "REGISTRY_AUTH=htpasswd" -e "REGISTRY_AUTH_HTPASSWD_REALM=Registry Realm" -e REGISTRY_AUTH_HTPASSWD_PATH=/auth/htpasswd -v /opt/registry/certs:/certs:z -v /opt/registry/registry_config.yml:/etc/docker/registry/config.yml -e "REGISTRY_HTTP_TLS_CERTIFICATE=/certs/docker.crt" -e "REGISTRY_HTTP_TLS_KEY=/certs/docker.key" -e REGISTRY_COMPATIBILITY_SCHEMA1_ENABLED=true -d registry:2.8.2
+podman run --name local-registry -p 192.168.10.110:5000:5000 -v /opt/registry/data:/var/lib/registry:z -v /opt/registry/auth:/auth:z -e "REGISTRY_AUTH=htpasswd" -e "REGISTRY_AUTH_HTPASSWD_REALM=Registry Realm" -e REGISTRY_AUTH_HTPASSWD_PATH=/auth/htpasswd -v /opt/registry/certs:/certs:z -v /opt/registry/registry_config.yml:/etc/docker/registry/config.yml -e "REGISTRY_HTTP_TLS_CERTIFICATE=/certs/docker.crt" -e "REGISTRY_HTTP_TLS_KEY=/certs/docker.key" -e REGISTRY_COMPATIBILITY_SCHEMA1_ENABLED=true -d registry:2.8.2
 ```
 ## Download ocp artifacts  and mirror the image
 https://cloud.redhat.com/openshift
@@ -203,28 +203,28 @@ imageContentSources:
 
    ```bash
    # Bootstrap Node - ocp-bootstrap
-   coreos.inst.install_dev=sda coreos.inst.image_url=http://192.168.22.1:8080/ocp4/rhcos coreos.inst.insecure=yes coreos.inst.ignition_url=http://192.168.22.1:8080/ocp4/bootstrap.ign
+   coreos.inst.install_dev=sda coreos.inst.image_url=http://192.168.10.11:8080/ocp4/rhcos coreos.inst.insecure=yes coreos.inst.ignition_url=http://192.168.10.11:8080/ocp4/bootstrap.ign
    
    # Or if you waited for it boot, use the following command then just reboot after it finishes and make sure you remove the attached .iso
-   sudo coreos-installer install /dev/sda -u http://192.168.22.1:8080/ocp4/rhcos -I http://192.168.22.1:8080/ocp4/bootstrap.ign --insecure --insecure-ignition
+   sudo coreos-installer install /dev/sda -u http://192.168.10.11:8080/ocp4/rhcos -I http://192.168.10.11:8080/ocp4/bootstrap.ign --insecure --insecure-ignition
    ```
 
    ```bash
    # Each of the Control Plane Nodes - ocp-cp-\#
-   coreos.inst.install_dev=sda coreos.inst.image_url=http://192.168.22.1:8080/ocp4/rhcos coreos.inst.insecure=yes coreos.inst.ignition_url=http://192.168.22.1:8080/ocp4/master.ign
+   coreos.inst.install_dev=sda coreos.inst.image_url=http://192.168.10.11:8080/ocp4/rhcos coreos.inst.insecure=yes coreos.inst.ignition_url=http://192.168.10.11:8080/ocp4/master.ign
    
    # Or if you waited for it boot, use the following command then just reboot after it finishes and make sure you remove the attached .iso
-   sudo coreos-installer install /dev/sda -u http://192.168.22.1:8080/ocp4/rhcos -I http://192.168.22.1:8080/ocp4/master.ign --insecure --insecure-ignition
+   sudo coreos-installer install /dev/sda -u http://192.168.10.11:8080/ocp4/rhcos -I http://192.168.10.11:8080/ocp4/master.ign --insecure --insecure-ignition
    ```
 
 1. Power on the ocp-w-\# hosts and select 'Tab' to enter boot configuration. Enter the following configuration:
 
    ```bash
    # Each of the Worker Nodes - ocp-w-\#
-   coreos.inst.install_dev=sda coreos.inst.image_url=http://192.168.22.1:8080/ocp4/rhcos coreos.inst.insecure=yes coreos.inst.ignition_url=http://192.168.22.1:8080/ocp4/worker.ign
+   coreos.inst.install_dev=sda coreos.inst.image_url=http://192.168.10.11:8080/ocp4/rhcos coreos.inst.insecure=yes coreos.inst.ignition_url=http://192.168.10.11:8080/ocp4/worker.ign
    
    # Or if you waited for it boot, use the following command then just reboot after it finishes and make sure you remove the attached .iso
-   sudo coreos-installer install /dev/sda -u http://192.168.22.1:8080/ocp4/rhcos -I http://192.168.22.1:8080/ocp4/worker.ign --insecure --insecure-ignition
+   sudo coreos-installer install /dev/sda -u http://192.168.10.11:8080/ocp4/rhcos -I http://192.168.10.11:8080/ocp4/worker.ign --insecure --insecure-ignition
    ```
 
 ## Monitor the Bootstrap Process
@@ -294,60 +294,6 @@ imageContentSources:
    watch -n5 oc get nodes
    ```
 
-## Configure storage for the Image Registry
-
-> A Bare Metal cluster does not by default provide storage so the Image Registry Operator bootstraps itself as 'Removed' so the installer can complete. As the installation has now completed storage can be added for the Registry and the operator updated to a 'Managed' state.
-
-1. Create the 'image-registry-storage' PVC by updating the Image Registry operator config by updating the management state to 'Managed' and adding 'pvc' and 'claim' keys in the storage key:
-
-   ```bash
-   oc edit configs.imageregistry.operator.openshift.io
-   ```
-
-   ```yaml
-   managementState: Managed
-   ```
-
-   ```yaml
-   storage:
-     pvc:
-       claim: # leave the claim blank
-   ```
-
-1. Confirm the 'image-registry-storage' pvc has been created and is currently in a 'Pending' state
-
-   ```bash
-   oc get pvc -n openshift-image-registry
-   ```
-
-1. Create the persistent volume for the 'image-registry-storage' pvc to bind to
-
-   ```bash
-   oc create -f ~/ocp4-metal-install/manifest/registry-pv.yaml
-   ```
-
-1. After a short wait the 'image-registry-storage' pvc should now be bound
-
-   ```bash
-   oc get pvc -n openshift-image-registry
-   ```
-
-## Create the first Admin user
-
-1. Apply the `oauth-htpasswd.yaml` file to the cluster
-
-   > This will create a user 'admin' with the password 'password'. To set a different username and password substitue the htpasswd key in the '~/ocp4-metal-install/manifest/oauth-htpasswd.yaml' file with the output of `htpasswd -n -B -b <username> <password>`
-
-   ```bash
-   oc apply -f ~/ocp4-metal-install/manifest/oauth-htpasswd.yaml
-   ```
-
-1. Assign the new user (admin) admin permissions
-
-   ```bash
-   oc adm policy add-cluster-role-to-user cluster-admin admin
-   ```
-
 ## Access the OpenShift Console
 
 1. Wait for the 'console' Cluster Operator to become available
@@ -379,7 +325,7 @@ imageContentSources:
 1. You can collect logs from all cluster hosts by running the following command from the 'ocp-svc' host:
 
    ```bash
-   ./openshift-install gather bootstrap --dir ocp-install --bootstrap=192.168.22.200 --master=192.168.22.201 --master=192.168.22.202 --master=192.168.22.203
+   ./openshift-install gather bootstrap --dir ocp-install --bootstrap=192.168.10.200 --master=192.168.10.201 --master=192.168.10.202 --master=192.168.10.203
    ```
 
 1. Modify the role of the Control Plane Nodes
