@@ -1,4 +1,3 @@
-# OCP
 # OpenShift 4.14.12 Bare Metal Install - User Provisioned Infrastructure (UPI) on restricted/disconnected enviorment 
 
 - [OpenShift 4 Bare Metal Install - User Provisioned Infrastructure (UPI)](#openshift-4-bare-metal-install---user-provisioned-infrastructure-upi)
