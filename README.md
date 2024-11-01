@@ -30,7 +30,7 @@
      - rhcos-X.X.X-x86_64-metal.x86_64.raw.gz
      - rhcos-X.X.X-x86_64-installer.x86_64.iso (or rhcos-X.X.X-x86_64-live.x86_64.iso for newer versions)
 
-configure local registry with UI [Setting up local-registry](./configure-local-registry)
+## Setting up local-registry
 1)	Generate CA & certificate for your docker container
 ## ca creation
 ```bash
