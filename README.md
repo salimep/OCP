@@ -3,6 +3,7 @@
 - [OpenShift 4 Bare Metal Install - User Provisioned Infrastructure (UPI)](#openshift-4-bare-metal-install---user-provisioned-infrastructure-upi)
   - [Architecture Diagram](#architecture-diagram)
   - [Download Software](#download-software)
+  - [Setting up local-registry](#configure-local-registry)
   - [Generate and host install files](#generate-and-host-install-files)
   - [Deploy OpenShift](#deploy-openshift)
   - [Monitor the Bootstrap Process](#monitor-the-bootstrap-process)
@@ -30,8 +31,7 @@
      - rhcos-X.X.X-x86_64-metal.x86_64.raw.gz
      - rhcos-X.X.X-x86_64-installer.x86_64.iso (or rhcos-X.X.X-x86_64-live.x86_64.iso for newer versions)
 
-## Prepare the 'Bare Metal' environment
-## configure  local registry with UI
+## configure  local registry with UI (#configure-local-registry)
 1)	Generate CA & certificate for your docker container
 ## ca creation
 ```bash
