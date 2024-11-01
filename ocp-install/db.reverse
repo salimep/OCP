@@ -1,0 +1,23 @@
+$TTL    604800
+@       IN      SOA     infra.salimonline.local. contact.salimonline.local (
+                  1     ; Serial
+             604800     ; Refresh
+              86400     ; Retry
+            2419200     ; Expire
+             604800     ; Minimum
+)
+
+  IN      NS      infra.salimonline.local.
+
+11      IN    PTR    infra.salimonline.local.
+11      IN    PTR    api.cloud.salimonline.local.
+11      IN    PTR    api-int.cloud.salimonline.local.
+;
+20    IN    PTR    bootstrap.cloud.salimonline.local.
+;
+12    IN    PTR    master-1.cloud.salimonline.local.
+13    IN    PTR    master-2.cloud.salimonline.local.
+14    IN    PTR    master-3.cloud.salimonline.local.
+;
+15    IN    PTR    wnode1.cloud.salimonline.local.
+16    IN    PTR    wnode2.cloud.salimonline.local.

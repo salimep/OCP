@@ -1,0 +1,57 @@
+apiVersion: v1
+baseDomain: salimonline.local
+compute:
+  - hyperthreading: Enabled
+    name: worker
+    replicas: 0 # Must be set to 0 for User Provisioned Installation as worker nodes will be manually deployed.
+controlPlane:
+  hyperthreading: Enabled
+  name: master
+  replicas: 3
+metadata:
+  name: cluster # Cluster name
+networking:
+  clusterNetwork:
+    - cidr: 10.128.0.0/14
+      hostPrefix: 23
+  networkType: OVNKubernetes
+  serviceNetwork:
+    - 172.30.0.0/16
+platform:
+  none: {}
+fips: false
+pullSecret: '{ }'
+sshKey: "ssh"
+additionalTrustBundle: |
+        -----BEGIN CERTIFICATE-----
+        MIIDkTCCAnmgAwIBAgIUCiplptP1hO7cTZV5CnPElaLgLcowDQYJKoZIhvcNAQEL
+        BQAwWDELMAkGA1UEBhMCU0ExDDAKBgNVBAcMA1JVSDEcMBoGA1UECgwTRGVmYXVs
+        dCBDb21wYW55IEx0ZDELMAkGA1UECwwCSVQxEDAOBgNVBAMMB29jcDQtY2EwHhcN
+        MjQxMDAzMTIxMjA3WhcNMjkxMDAyMTIxMjA3WjBYMQswCQYDVQQGEwJTQTEMMAoG
+        A1UEBwwDUlVIMRwwGgYDVQQKDBNEZWZhdWx0IENvbXBhbnkgTHRkMQswCQYDVQQL
+        DAJJVDEQMA4GA1UEAwwHb2NwNC1jYTCCASIwDQYJKoZIhvcNAQEBBQADggEPADCC
+        AQoCggEBALBd2+RzqMlzC/ugm+4WwqRDToscvQTTj4ONcPhje+dyuegcTtGQ72m6
+        yAr5jpTOF3Or9fBbvHWoLqA+1AyqqTexAYglBk+o7arzI6pJcXgxLObaZcakv/xN
+        9N1WPMtZqCylEEegszWWONbdYul7nwdYb0il88MHWOtX1+2URUiEt2VXMwPKX/Q5
+        SlathO8ofz9KWft9fbA4R55JyOIV78pb7xxjihLF19Ppc9KChgTLqCaCYXJmPS4c
+        5wyUzDBMz/poPirkKFDRJUlTGE8dPVP1Ji4SMnOlgroLO+1sP9fDe3JBWPv6oB96
+        v04jLtEMIzyEXjb+hVq2Xp55HW0938MCAwEAAaNTMFEwHQYDVR0OBBYEFAAOtcIE
+        +/UG8mbCpeb8066UYdWWMB8GA1UdIwQYMBaAFAAOtcIE+/UG8mbCpeb8066UYdWW
+        MA8GA1UdEwEB/wQFMAMBAf8wDQYJKoZIhvcNAQELBQADggEBAAfK0mrhsGjqJRqR
+        /L97lcx3p6p4JrOBYcrDbg2VK4xv26HLI5daNHQxSO1mgTBIEjRaPEaxVsn4ZJ7O
+        GR5Aito+OJjqt7n7HXAeaAO/BnegpZsQTHd26pDNrkRwia67pFhhhImHjCiN2YHa
+        TsMBCunTeQ4GHlMAFelLrIPJT3pqjItoGxXUqjNE89onMlCiq5nM7PB2mAsYUf5y
+        ydj0qTq+h5GINMN+LyqG3hgjS1W4wIlI5R/EZqrbZaKo/6sVjnQqbDqyoqepHaSs
+        mvCevCIvzmdHdxIKUOVieoj2xb9tXROaXh0h81f4AcwkOq6fghveOa8xh+Cy16EZ
+        G7BMX4I=
+        -----END CERTIFICATE-----
+
+imageContentSources:
+- mirrors:
+  - local-registry:5000/ocp-release/openshift4
+  source: quay.io/openshift-release-dev/ocp-release
+- mirrors:
+  - local-registry:5000/ocp-release/openshift4
+  source: quay.io/openshift-release-dev/ocp-v4.0-art-dev
+
+

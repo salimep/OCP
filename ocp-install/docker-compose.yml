@@ -1,0 +1,41 @@
+version: '3.8'
+
+services:
+  registry-ui:
+    image: joxit/docker-registry-ui:main
+    restart: always
+    ports:
+      - 8080:80
+    environment:
+      - SINGLE_REGISTRY=true
+      - REGISTRY_TITLE=Docker Registry UI
+      - DELETE_IMAGES=true
+      - SHOW_CONTENT_DIGEST=true
+      - NGINX_PROXY_PASS_URL=https://local-registry:5000
+      - SHOW_CATALOG_NB_TAGS=true
+      - CATALOG_MIN_BRANCHES=1
+      - CATALOG_MAX_BRANCHES=1
+      - TAGLIST_PAGE_SIZE=100
+      - REGISTRY_SECURED=false
+      - CATALOG_ELEMENTS_LIMIT=1000
+    container_name: registry-ui
+
+  local-registry:
+    ports:
+     -  5000:5000
+    image: registry:2.8.2
+    restart: always
+    volumes:
+      - /opt/registry/data:/var/lib/registry:z
+      - /opt/registry/certs:/certs:z  # Mount SSL certificates
+      - /opt/registry/auth:/auth:z    # Mount the password file
+      - ./registry_config.yml:/etc/docker/registry/config.yml
+    environment:
+      REGISTRY_AUTH: "htpasswd"
+      REGISTRY_AUTH_HTPASSWD_REALM: "Registry Realm"
+      REGISTRY_AUTH_HTPASSWD_PATH: "/auth/htpasswd"
+      REGISTRY_HTTP_TLS_CERTIFICATE: "/certs/docker.crt"
+      REGISTRY_HTTP_TLS_KEY: "/certs/docker.key"
+      REGISTRY_COMPATIBILITY_SCHEMA1_ENABLED: true
+    container_name: local-registry
+

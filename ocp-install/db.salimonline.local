@@ -1,0 +1,53 @@
+$TTL    604800
+@       IN      SOA     infra.salimonline.local. contact.salimonline.local (
+                  1     ; Serial
+             604800     ; Refresh
+              86400     ; Retry
+            2419200     ; Expire
+             604800     ; Minimum
+)
+        IN      NS      infra
+
+infra.salimonline.local.         IN      A       192.168.10.11
+ipa.salimonline.local.         IN      A       192.168.10.20
+local-registry.salimonline.local.         IN      A       192.168.10.10
+
+; Temp Bootstrap Node
+bootstrap.cloud.salimonline.local.        IN      A      192.168.10.20
+
+; Control Plane Nodes
+master-1.cloud.salimonline.local.         IN      A      192.168.10.12
+master-2.cloud.salimonline.local.         IN      A      192.168.10.13
+master-3.cloud.salimonline.local.         IN      A      192.168.10.14
+
+; Worker Nodes
+wnode1.cloud.salimonline.local.        IN      A      192.168.10.15
+wnode2.cloud.salimonline.local.        IN      A      192.168.10.16
+
+; OpenShift Internal - Load balancer
+api.cloud.salimonline.local.        IN    A    192.168.10.11
+api-int.cloud.salimonline.local.    IN    A    192.168.10.11
+*.apps.cloud.salimonline.local.     IN    A    192.168.10.11
+
+; ETCD Cluster
+etcd-0.cloud.salimonline.local.    IN    A     192.168.10.12
+etcd-1.cloud.salimonline.local.    IN    A     192.168.10.13
+etcd-2.cloud.salimonline.local.    IN    A     192.168.10.14
+
+; OpenShift Internal SRV records (cluster name = cloud)
+_etcd-server-ssl._tcp.cloud.salimonline.local.    86400     IN    SRV     0    10    2380    etcd-0.cloud
+_etcd-server-ssl._tcp.cloud.salimonline.local.    86400     IN    SRV     0    10    2380    etcd-1.cloud
+_etcd-server-ssl._tcp.cloud.salimonline.local.    86400     IN    SRV     0    10    2380    etcd-2.cloud
+
+oauth-openshift.apps.cloud.salimonline.local.     IN     A     192.168.10.11
+console-openshift-console.apps.cloud.salimonline.local.     IN     A     192.168.10.11
+; IPA configuration
+
+_kerberos._udp.salimonline.local.  86400  IN  SRV  0  100  88  ipa.salimonline.local.
+_kerberos._tcp.salimonline.local.  86400  IN  SRV  0  100  88  ipa.salimonline.local.
+
+_ldap._tcp.salimonline.local.  86400  IN  SRV  0  100  389  ipa.salimonline.local.
+
+_kerberos.salimonline.local.  86400  IN  TXT  "SALIMONLINE.LOCAL"
+
+
