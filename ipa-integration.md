@@ -1,13 +1,20 @@
 # OpenShift Redhat IPA integration guide
 
--  [create user for ipa secret](#)
+-  [create secret for ipa user](#)
   - [create configmap for IPA ca](#architecture-diagram)
   - [modify oauth yaml](#download-software)
   - [apply yaml and check the pod status](#configure-local-registry)
 
 
 
-[create user for ipa secret]
+verify user credentials using ldapsearch 
+
+```bash
+ldapsearch -D "cn=salim"  -w xxxx -H ldaps://ipa.salimonline.local ## this user should have rights  to see other uid's
+```
+
+
+[create secret for ipa user]
 ```bash
 oc create secret generic ipa-ldap-secret --from-literal bindPassword=xxx -n openshift-config
 ```
