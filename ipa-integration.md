@@ -1,4 +1,4 @@
-# OpenShift 4.14.12 Bare Metal Install - User Provisioned Infrastructure (UPI) on restricted/disconnected enviorment 
+# OpenShift Redhat IPA integration guide
 
 -  [create user for ipa secret](#)
   - [create configmap for IPA ca](#architecture-diagram)
@@ -57,5 +57,5 @@ oc apply -f oauth.yml
 
 status
 --
-oc -n openshift-authentication get pod ( itshould be recreated)
+oc -n openshift-authentication get pod #( its hould be recreated)
 ```          
