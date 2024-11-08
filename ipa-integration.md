@@ -45,7 +45,7 @@ spec:
           - cn
         preferredUsername:
           - uid
-      bindDN: 'uid=salim'
+      bindDN: 'uid=salim,cn=users,cn=accounts,dc=salimonline,dc=local'
       bindPassword:
         name: ipa-ldap-secret
       ca:
