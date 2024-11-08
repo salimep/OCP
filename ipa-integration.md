@@ -4,7 +4,6 @@
   - [create configmap for IPA ca](#architecture-diagram)
   - [modify oauth yaml](#download-software)
   - [apply yaml and check the pod status](#configure-local-registry)
-  - [Generate and host install files](#generate-and-host-install-files)
 
 
 
