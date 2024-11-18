@@ -7,7 +7,7 @@
 
 
 
-[create butane config]
+create butane config
 ```yaml
 variant: openshift
 version: 4.12.0
@@ -31,7 +31,7 @@ storage:
           rtcsync
           logdir /var/log/chrony
 ```
-install butane binary & convert to MC yaml for mac
+install butane binary for mac & convert into MC yaml
 ```bash
 brew install butane
 
@@ -61,7 +61,7 @@ spec:
   kernelArguments:
     - loglevel=7
 ```
-apply MC yaml
+apply MC config
 ```bash
 oc apply -f 99-master-chrony.yml
 
@@ -73,7 +73,8 @@ oc get mcp #(UPDATING column should be True and ID shoudl match with MC ID to ve
 NAME     CONFIG                                             UPDATED   UPDATING   DEGRADED   MACHINECOUNT   READYMACHINECOUNT   UPDATEDMACHINECOUNT   DEGRADEDMACHINECOUNT   AGE
 master   rendered-master-bb156e50b92df989e079a74dc1a48edc   False     True       False      3              0                   0                     0                      7d21h
 worker   rendered-worker-4d5d081553296c1e71fea5ea47040f66   False     True       False      2              0                   0                     0                      7d21h
- incase if you apply by force
+```
+incase if you want trigger MC manually
 
 ```bash
 oc patch machineconfigpool master --type=merge -p '{"metadata":{"annotations":{"machineconfiguration.openshift.io/desiredConfig":"100-worker-custom-ntp"}}}'
