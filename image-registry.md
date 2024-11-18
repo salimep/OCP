@@ -1,4 +1,4 @@
-# OpenShift 4.14.12 image registry setup for disconnected enviorenment 
+# OpenShift 4.14.12 image registry setup for disconnected enviornment 
 
 -  [create PV for image storage](#)
   - [configure image-registry config ](#architecture-diagram)
@@ -6,7 +6,7 @@
   - [login to openshift image registry](#configure-local-registry)
   - [pull the image into registry](#generate-and-host-install-files)
 
-create PV for nfs storage assume you  already have  nfs-server in your enviorenment
+create PV for nfs storage (assume you already have nfs-server in your enviornment)
 ```yaml
 apiVersion: v1
 kind: PersistentVolume
@@ -60,7 +60,7 @@ spec:
       claim: image-registry-storage ## PVC name
   unsupportedConfigOverrides: null
 ```
-PVC yaml Example
+PVC yaml example
 ```yaml
 apiVersion: v1
 kind: PersistentVolumeClaim
