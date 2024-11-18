@@ -1,10 +1,10 @@
-# OpenShift 4.14.12 image registry setup for disconnected enviorment 
+# OpenShift 4.14.12 image registry setup for disconnected enviorenment 
 
--  [create PV for image strorage](#)
-  - [configure openshift-image-registry ](#architecture-diagram)
-  - [get route from openshift-image-registry](#download-software)
+-  [create PV for image storage](#)
+  - [configure image-registry config ](#architecture-diagram)
+  - [get route from openshift-image-registry NS ](#download-software)
   - [login to openshift image registry](#configure-local-registry)
-  - [pull the image into openshift-image-registry](#generate-and-host-install-files)
+  - [pull the image into registry](#generate-and-host-install-files)
 
 create PV for nfs storage assume you  already have  nfs-server in your enviorenment
 ```yaml
