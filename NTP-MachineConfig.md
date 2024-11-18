@@ -1,6 +1,6 @@
-# OpenShift 4.14.12 Bare Metal MC for NTP service
+# OpenShift 4.14.12  MC for NTP service
 
--  [create butane configuration](#)
+-  [create butane config file](#)
   - [convert butane image to MC yaml](#architecture-diagram)
   - [apply MC yaml](#download-software)
   - [check MCP status](#configure-local-registry)
