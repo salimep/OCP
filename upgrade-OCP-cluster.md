@@ -1,11 +1,11 @@
-# upgrade OpenShift from  4.14.12 to 4.14.13 on disconnected enviorenment 
+# upgrade OpenShift cluster from 4.14.12 to 4.14.13 on disconnected environment 
 
 -  [mirror the new image from redhat registry](#)
   - [upload mirror image into local registry ](#architecture-diagram)
   - [apply the the signature configmap](#download-software)
   - [upgrade OCP cluster](#configure-local-registry)
 
-mirror the image  from registr.redhat io ( from your lap which have reliable internet)
+mirror the image  from register.redhat.io ( from your lap which have reliable internet)
 
 ```bash
 export OCP_RELEASE=4.14.13
